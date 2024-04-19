@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
+
 <body>
     <section class="section">
         <div class="container">
@@ -76,7 +78,7 @@
     <script>
         var gustos = [];
 
-        document.getElementById('add-gusto').addEventListener('click', function() {
+        document.getElementById('add-gusto').addEventListener('click', function () {
             var gustoInput = document.getElementById('gusto-input');
             var gustoValue = gustoInput.value.trim();
             if (gustoValue !== '') {
@@ -93,7 +95,7 @@
         function renderGustos() {
             var tableBody = document.getElementById('gustos-table');
             tableBody.innerHTML = '';
-            gustos.forEach(function(gustoObj, index) {
+            gustos.forEach(function (gustoObj, index) {
                 var row = document.createElement('tr');
                 var gustoCell = document.createElement('td');
                 gustoCell.textContent = gustoObj.gusto;
@@ -107,7 +109,7 @@
                 var editButton = document.createElement('button');
                 editButton.textContent = 'Editar';
                 editButton.classList.add('button', 'is-small', 'is-info', 'edit-button');
-                editButton.addEventListener('click', function() {
+                editButton.addEventListener('click', function () {
                     // Aquí puedes implementar la lógica para editar la fila
                     // Por ejemplo, cambiar los textos a campos de edición
                     if (editButton.textContent === 'Editar') {
@@ -125,9 +127,9 @@
             });
         }
 
-        document.getElementById('accept-changes').addEventListener('click', function() {
+        document.getElementById('accept-changes').addEventListener('click', function () {
             var rows = document.querySelectorAll('#gustos-table tr');
-            rows.forEach(function(row, index) {
+            rows.forEach(function (row, index) {
                 var gustoCell = row.cells[0];
                 var porcentajeCell = row.cells[1];
                 var editButton = row.cells[2].querySelector('button');
@@ -141,9 +143,10 @@
             });
         });
 
-        document.getElementById('cancel-changes').addEventListener('click', function() {
+        document.getElementById('cancel-changes').addEventListener('click', function () {
             renderGustos();
         });
     </script>
 </body>
+
 </html>
