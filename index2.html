@@ -1,36 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-</head>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: auto;
+            text-align: center;
+        }
 
+        .title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        table {
+            margin: auto;
+            font-size: 1.2em;
+            border-collapse: collapse; /* Para colapsar los bordes de las celdas */
+        }
+
+        th, td {
+            border: none; /* Eliminar los bordes de las celdas */
+            padding: 10px; /* Añadir un espacio alrededor del contenido de las celdas */
+        }
+    </style>
+</head>
 <body>
     <section class="section">
         <div class="container">
-            <!-- Aquí se mostrarán los datos del usuario -->
+            <h1 class="title">Resultado</h1>
             <table class="table is-fullwidth">
-                <tbody id="user-info">
+                <tbody>
+                    <tr>
+                        <td>Nombre</td>
+                        <td id="usuario"></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td id="email"></td>
+                    </tr>
+                    <tr>
+                        <td>Teléfono</td>
+                        <td id="telefono"></td>
+                    </tr>
+                    <tr>
+                        <td>Gusto</td>
+                        <td id="gusto"></td>
+                    </tr>
+                    <tr>
+                        <td>Porcentaje (%)</td>
+                        <td id="porcentaje"></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </section>
+
     <script>
-        document.getElementById('goto-index2').addEventListener('click', function (event) {
-            var nombreUsuario = document.getElementById('nombre-usuario').value;
-            var correoElectronico = document.getElementById('correo-electronico').value;
-            var telefono = document.getElementById('telefono').value;
+        const urlParams = new URLSearchParams(window.location.search);
+        const usuario = urlParams.get('usuario');
+        const email = urlParams.get('email');
+        const telefono = urlParams.get('telefono');
+        const gusto = urlParams.get('gusto');
+        const porcentaje = urlParams.get('porcentaje');
 
-            var url = 'index2.html?usuario=' + encodeURIComponent(nombreUsuario) + '&email=' + encodeURIComponent(correoElectronico) + '&telefono=' + encodeURIComponent(telefono);
-
-            this.href = url;
-        });
-
+        document.getElementById('usuario').textContent = usuario;
+        document.getElementById('email').textContent = email;
+        document.getElementById('telefono').textContent = telefono;
+        document.getElementById('gusto').textContent = gusto;
+        document.getElementById('porcentaje').textContent = porcentaje;
     </script>
 </body>
-
 </html>
