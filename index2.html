@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <!-- Aquí se mostrarán los datos del usuario -->
+            <table class="table is-fullwidth">
+                <tbody id="user-info">
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <script>
+        document.getElementById('goto-index2').addEventListener('click', function (event) {
+            var nombreUsuario = document.getElementById('nombre-usuario').value;
+            var correoElectronico = document.getElementById('correo-electronico').value;
+            var telefono = document.getElementById('telefono').value;
+
+            var url = 'index2.html?usuario=' + encodeURIComponent(nombreUsuario) + '&email=' + encodeURIComponent(correoElectronico) + '&telefono=' + encodeURIComponent(telefono);
+
+            this.href = url;
+        });
+
+    </script>
+</body>
+
+</html>

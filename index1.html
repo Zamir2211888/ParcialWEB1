@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebDeveloper</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title has-text-grey">Web<b>Developer</b></h1>
+            <h2 class="subtitle has-text-centered">Formulario de afiliación</h2>
+            <form id="affiliation-form">
+                <div class="field">
+                    <label class="label">Nombre de usuario</label>
+                    <div class="control has-icons-right">
+                        <input class="input" type="text" placeholder="Nombre de usuario">
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Correo electrónico</label>
+                    <div class="control has-icons-right">
+                        <input class="input" type="email" placeholder="Correo electrónico">
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Teléfono</label>
+                    <div class="control has-icons-right">
+                        <input class="input" type="tel" placeholder="Teléfono">
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-phone"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field has-addons">
+                    <div class="control is-expanded">
+                        <input class="input" type="text" placeholder="Gusto" id="gusto-input">
+                    </div>
+                    <div class="control">
+                        <button type="button" class="button is-success" id="add-gusto">Gustos</button>
+                    </div>
+                </div>
+            </form>
+            <table class="table is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Gusto</th>
+                        <th>%</th>
+                        <th>edit</th>
+                    </tr>
+                </thead>
+                <tbody id="gustos-table">
+                </tbody>
+            </table>
+            <p>Pulse Aceptar para guardar los cambios o cancelar para anularlos</p>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="button" class="button is-primary" id="accept-changes">Aceptar</button>
+                </div>
+                <div class="control">
+                    <button type="button" class="button is-danger" id="cancel-changes">Cancelar</button>
+                </div>
+            </div>
+            <a href="index2.html" id="goto-index2">Ir a Site de P Web</a>
+        </div>
+    </section>
+    <script>
+        var gustos = [];
+
+        document.getElementById('add-gusto').addEventListener('click', function() {
+            var gustoInput = document.getElementById('gusto-input');
+            var gustoValue = gustoInput.value.trim();
+            if (gustoValue !== '') {
+                var gustoObj = {
+                    gusto: gustoValue,
+                    porcentaje: '0%'
+                };
+                gustos.push(gustoObj);
+                renderGustos();
+                gustoInput.value = '';
+            }
+        });
+
+        function renderGustos() {
+            var tableBody = document.getElementById('gustos-table');
+            tableBody.innerHTML = '';
+            gustos.forEach(function(gustoObj, index) {
+                var row = document.createElement('tr');
+                var gustoCell = document.createElement('td');
+                gustoCell.textContent = gustoObj.gusto;
+                row.appendChild(gustoCell);
+
+                var porcentajeCell = document.createElement('td');
+                porcentajeCell.textContent = gustoObj.porcentaje;
+                row.appendChild(porcentajeCell);
+
+                var editCell = document.createElement('td');
+                var editButton = document.createElement('button');
+                editButton.textContent = 'Editar';
+                editButton.classList.add('button', 'is-small', 'is-info', 'edit-button');
+                editButton.addEventListener('click', function() {
+                    // Aquí puedes implementar la lógica para editar la fila
+                    // Por ejemplo, cambiar los textos a campos de edición
+                    if (editButton.textContent === 'Editar') {
+                        gustoCell.contentEditable = true;
+                        porcentajeCell.contentEditable = true;
+                        editButton.textContent = 'En edición';
+                        editButton.classList.remove('is-info');
+                        editButton.classList.add('is-black');
+                    }
+                });
+                editCell.appendChild(editButton);
+                row.appendChild(editCell);
+
+                tableBody.appendChild(row);
+            });
+        }
+
+        document.getElementById('accept-changes').addEventListener('click', function() {
+            var rows = document.querySelectorAll('#gustos-table tr');
+            rows.forEach(function(row, index) {
+                var gustoCell = row.cells[0];
+                var porcentajeCell = row.cells[1];
+                var editButton = row.cells[2].querySelector('button');
+                if (editButton.textContent === 'En edición') {
+                    gustos[index].gusto = gustoCell.textContent;
+                    gustos[index].porcentaje = porcentajeCell.textContent;
+                    editButton.textContent = 'Editar';
+                    editButton.classList.remove('is-black');
+                    editButton.classList.add('is-info');
+                }
+            });
+        });
+
+        document.getElementById('cancel-changes').addEventListener('click', function() {
+            renderGustos();
+        });
+    </script>
+</body>
+</html>
