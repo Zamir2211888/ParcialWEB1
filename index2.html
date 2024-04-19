@@ -7,59 +7,86 @@
     <title>Resultado</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
         .container {
-            max-width: 800px;
-            margin: auto;
-            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .title {
             font-size: 2em;
             margin-bottom: 20px;
+            color: #333;
         }
 
         table {
-            margin: auto;
-            font-size: 1.2em;
-            border-collapse: collapse; /* Para colapsar los bordes de las celdas */
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
         }
 
         th, td {
-            border: none; /* Eliminar los bordes de las celdas */
-            padding: 10px; /* Añadir un espacio alrededor del contenido de las celdas */
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        th {
+            background-color: #f8f8f8;
+        }
+
+        td {
+            padding-left: 0;
+        }
+
+        .nombre, .email, .telefono, .gusto, .porcentaje {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <section class="section">
-        <div class="container">
-            <h1 class="title">Resultado</h1>
-            <table class="table is-fullwidth">
-                <tbody>
-                    <tr>
-                        <td>Nombre</td>
-                        <td id="usuario"></td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td id="email"></td>
-                    </tr>
-                    <tr>
-                        <td>Teléfono</td>
-                        <td id="telefono"></td>
-                    </tr>
-                    <tr>
-                        <td>Gusto</td>
-                        <td id="gusto"></td>
-                    </tr>
-                    <tr>
-                        <td>Porcentaje (%)</td>
-                        <td id="porcentaje"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+    <div class="container">
+        <h1 class="title">Resultado</h1>
+        <h2 class="title">Ficha</h2>
+        <table>
+            <tbody>
+                <tr>
+                    <td class="nombre">Nombre</td>
+                    <td id="usuario"></td>
+                </tr>
+                <tr>
+                    <td class="email">Email</td>
+                    <td id="email"></td>
+                </tr>
+                <tr>
+                    <td class="telefono">Teléfono</td>
+                    <td id="telefono"></td>
+                </tr>
+                <tr>
+                    <td class="gusto">Gusto</td>
+                    <td id="gusto"></td>
+                </tr>
+                <tr>
+                    <td class="porcentaje">Porcentaje (%)</td>
+                    <td id="porcentaje"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);

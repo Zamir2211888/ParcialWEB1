@@ -13,8 +13,7 @@
 <body>
     <section class="section">
         <div class="container">
-            <h1 class="title has-text-grey">Web<b>Developer</b></h1>
-            <h2 class="subtitle has-text-centered">Formulario de afiliación</h2>
+            <h1 class="title has-text-grey"><b>Formulario De Afiliacion</b></h1>
             <form id="affiliation-form">
                 <div class="field">
                     <label class="label">Nombre de usuario</label>
@@ -64,6 +63,8 @@
                 </tbody>
             </table>
             <p>Pulse Aceptar para guardar los cambios o cancelar para anularlos</p>
+            <div id="edit-warning" class="notification is-warning is-hidden">Solo se puede editar una línea. Recargue la
+                página para poder editar otra</div>
             <div class="field is-grouped">
                 <div class="control">
                     <button type="button" class="button is-primary" id="accept-changes">Aceptar</button>
@@ -72,11 +73,12 @@
                     <button type="button" class="button is-danger" id="cancel-changes">Cancelar</button>
                 </div>
             </div>
-            <a href="index2.html" id="goto-index2">Ir a Site de P Web</a>
+            <a href="#" id="goto-index2">Ir a Site de P Web</a>
         </div>
     </section>
     <script>
         var gustos = [];
+        var filaEnEdicion = -1; // Índice de la fila en edición, -1 si no hay ninguna fila en edición
 
         document.getElementById('add-gusto').addEventListener('click', function () {
             var gustoInput = document.getElementById('gusto-input');
@@ -110,14 +112,18 @@
                 editButton.textContent = 'Editar';
                 editButton.classList.add('button', 'is-small', 'is-info', 'edit-button');
                 editButton.addEventListener('click', function () {
-                    // Aquí puedes implementar la lógica para editar la fila
-                    // Por ejemplo, cambiar los textos a campos de edición
+                    if (filaEnEdicion !== -1 && filaEnEdicion !== index) {
+                        document.getElementById('edit-warning').classList.remove('is-hidden');
+                        return;
+                    }
+
                     if (editButton.textContent === 'Editar') {
                         gustoCell.contentEditable = true;
                         porcentajeCell.contentEditable = true;
                         editButton.textContent = 'En edición';
                         editButton.classList.remove('is-info');
                         editButton.classList.add('is-black');
+                        filaEnEdicion = index;
                     }
                 });
                 editCell.appendChild(editButton);
@@ -139,13 +145,30 @@
                     editButton.textContent = 'Editar';
                     editButton.classList.remove('is-black');
                     editButton.classList.add('is-info');
+                    gustoCell.contentEditable = false;
+                    porcentajeCell.contentEditable = false;
+                    filaEnEdicion = -1;
                 }
             });
         });
 
         document.getElementById('cancel-changes').addEventListener('click', function () {
             renderGustos();
+            filaEnEdicion = -1; // Resetear la fila en edición
         });
+
+        document.getElementById('goto-index2').addEventListener('click', function (event) {
+            event.preventDefault();
+            var usuario = document.querySelector('input[type="text"]').value;
+            var email = document.querySelector('input[type="email"]').value;
+            var telefono = document.querySelector('input[type="tel"]').value;
+            var gusto = gustos.map(function (gustoObj) { return gustoObj.gusto; }).join(',');
+            var porcentaje = gustos.map(function (gustoObj) { return gustoObj.porcentaje; }).join(',');
+
+            var url = `index2.html?usuario=${usuario}&email=${email}&telefono=${telefono}&gusto=${gusto}&porcentaje=${porcentaje}`;
+            window.location.href = url;
+        });
+
     </script>
 </body>
 
